@@ -5,6 +5,7 @@ in vec2 fragCoord;
 
 uniform vec2 iResolution;
 uniform float iTime;
+uniform sampler2D screenTexture;
 
 // Função de paleta (https://iquilezles.org/articles/palettes/)
 vec3 palette(float t) {
@@ -47,6 +48,25 @@ void main() {
     //if (pow(pow(uv0.x-sin(iTime*3.0)*(1.0-0.2),2.0)+pow(uv0.y-cos(iTime*3.0)*(1.0-0.2),2.0), 0.5) < 0.1) 
     if (length( vec2( uv.x+sin(iTime*3.0*d)*(1.0-0.2), uv.y+cos(iTime*3.0*d)*(1.0-0.2) ) ) < 0.7 + 0.3*sin(iTime))
         finalColor = palette(iTime*0.3);
+    
+
+    vec2 texelSize = 1.0 / iResolution;
+    vec3 result = vec3(0.0);
+
+    // Filtro 3x3
+    for(int i = -1; i <= 1; i++)
+    {
+        for(int j = -1; j <= 1; j++)
+        {
+            vec2 offset = vec2(float(i), float(j)) * texelSize;
+            //result += texture(screenTexture, fragCoord + offset).rgb;
+            finalColor += texture(screenTexture, fragCoord + offset).rgb;
+        }
+    }
+
+    // Média
+    //finalColor += result / 9.0;//*cos(iTime);
+
 
     FragColor = vec4(finalColor, 1.0);
     //FragColor = vec4(uv, 0.0, 1.0);
