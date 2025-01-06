@@ -1,0 +1,54 @@
+// {
+//     "version": "2.0.0",
+//     "tasks": [
+//         {
+//             "label": "build",
+//             "type": "shell",
+//             "command": "gcc",
+//             "args": [
+//                 "-g",
+//                 "${workspaceFolder}/src/create_animation_v3.c",
+//                 "${workspaceFolder}/src/glad.c",
+//                 "-I${workspaceFolder}/include",
+//                 "-L${workspaceFolder}/lib",
+//                 "-lglfw3dll",
+//                 "-lopengl32",
+//                 "-lgdi32",
+//                 "-o",
+//                 "${workspaceFolder}/build/create_animation_v3.exe"
+//             ],
+//             "group": {
+//                 "kind": "build",
+//                 "isDefault": true
+//             },
+//             "problemMatcher": ["$gcc"],
+//             "detail": "Compiling and linking your project with GCC"
+//         }
+//     ]
+// }
+
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compilar Teste OpenGL",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "src/test3_opengl.cpp",
+                "src/glad.c",
+                "-Iinclude",
+                "-Llib",
+                "-lglfw3dll",
+                "-lgdi32",
+                "-o",
+                "TesteOpenGL",
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}
